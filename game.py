@@ -1,5 +1,6 @@
 import pygame as pg
 from grid import Grid
+from snake import Snake
 
 class Game:
     """
@@ -26,9 +27,8 @@ class Game:
         Starts game loop
         """
         print(pg.get_init())
-        
         game_board = Grid(self.WIDTH, self.HEIGHT)
-        game_board.add_snake()
+        snake = Snake(game_board, length=4)
         print(repr(game_board))
         game_board.draw(self.screen)
         running = True
@@ -37,10 +37,11 @@ class Game:
                 if event.type == pg.QUIT:
                     running = False
 
-            game_board.add_snake()
             game_board.draw(self.screen)
+            snake.update()
             pg.display.update()
             self.clock.tick(self.FPS)
-            print(self.clock.get_fps())
+            # print(self.clock.get_fps())
+            self.screen.fill(self.BG_COLOUR)
         pg.quit()
         
