@@ -1,31 +1,7 @@
 import pygame as pg
 import numpy as np
-
-from abc import ABC, abstractmethod
-
-class Cell_content(ABC):
-    """
-    Abstact class decribing cell content
-    """
-    direction = None
-    @abstractmethod
-    def __init__(self, direction = None) -> None:
-        """
-        initialize cell content
-        """
-        ...
-    @abstractmethod
-    def update(self, new_direction = None) -> None:
-        """
-        update cell content
-        """
-        ...
-    @abstractmethod
-    def draw(self, screen:pg.Surface, screen_x:int, screen_y:int, size:int)->None:
-        """
-        draw content of cell to screen
-        """
-        ...
+from food import Food
+from cell_content import Cell_content
 
 class Cell:
     """
@@ -120,3 +96,12 @@ class Grid:
             y = 0
         
         return (x,y)
+
+    def regen_food(self)->Cell:
+        x = np.random.randint(0, self.num_cols)
+        y = np.random.randint(0, self.num_rows)
+        if self.get_cell(x, y).content is None:
+            self.get_cell(x,y).set_content(Food())
+            return self.get_cell(x,y)
+        else:
+            return self.regen_food()
