@@ -10,7 +10,7 @@ class Game:
     """
     # Define Constants
     FPS = 60
-    SCREEN_SIZE = WIDTH, HEIGHT = (640,480)
+    SCREEN_SIZE = WIDTH, HEIGHT = (32*40,24*40)
     BG_COLOUR = (200,200, 220)
 
     def __init__(self) -> None:
